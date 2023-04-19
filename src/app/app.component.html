@@ -1,9 +1,2 @@
 <button (click)="onButtonClick()">Request</button>
-
-<div class="container">
-  <app-random-num [delay]="first"
-    >first: {{ randomNum | async }}</app-random-num
-  >
-  <app-random-num [delay]="second">second:</app-random-num>
-  <app-random-num [delay]="third">third: </app-random-num>
-</div>
+<app-stream-list randomVal="{{ randomNum$ | async }}"></app-stream-list>

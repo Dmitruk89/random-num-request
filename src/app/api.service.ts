@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { take, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -11,15 +11,20 @@ export class ApiService {
   randomNumUrl =
     'http://www.randomnumberapi.com/api/v1.0/random?min=100&max=1000&count=1';
 
-  randomVal!: Observable<string>;
-  valUpdated = new Subject<string>();
+  private _valUpdated$ = new Subject<string>();
+
+  public set valUpdated(value: string) {
+    this._valUpdated$.next(value);
+  }
+
+  public get valUpdated$(): Observable<string> {
+    return this._valUpdated$.asObservable();
+  }
 
   getRandom() {
     return this.http.get<string>(this.randomNumUrl).pipe(
-      take(1),
       tap((val: string) => {
-        this.valUpdated.next(val);
-        return val;
+        this.valUpdated = val;
       })
     );
   }

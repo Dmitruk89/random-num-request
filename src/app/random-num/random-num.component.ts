@@ -11,9 +11,9 @@ export class RandomNumComponent implements OnInit {
   constructor(private apiService: ApiService) {}
   @Input()
   delay!: number;
-  randomNum!: any;
+  randomNum$!: Observable<string>;
 
   ngOnInit() {
-    this.randomNum = this.apiService.valUpdated;
+    this.randomNum$ = this.apiService.valUpdated$.pipe(delay(this.delay));
   }
 }

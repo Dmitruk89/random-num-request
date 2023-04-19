@@ -9,15 +9,13 @@ import { ApiService } from './api.service';
 })
 export class AppComponent implements OnInit {
   constructor(private apiService: ApiService) {}
-  randomNum!: Observable<string>;
-  first = 500;
-  second = 800;
-  third = 1000;
+  randomNum$!: Observable<string>;
+
   ngOnInit() {
-    this.randomNum = this.apiService.getRandom();
+    this.randomNum$ = this.apiService.getRandom();
   }
 
   onButtonClick() {
-    this.randomNum = this.apiService.getRandom();
+    this.randomNum$ = this.apiService.getRandom();
   }
 }
